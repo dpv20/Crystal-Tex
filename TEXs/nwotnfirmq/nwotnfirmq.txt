@@ -1,0 +1,24 @@
+Project Name:   ejemplo_Final
+Decimal Separator:   ,
+Country:   Brazil
+Area:   75.0
+Region:   USA
+Type of Lagoon:   RE
+Language:   English
+Currency:   USD
+Maximum Lagoon Depth:   1.8
+Total Perimeter:   3975.0
+Wall:   3900.0
+Beach Entrance:   50.0
+Island beach entrance:   25.0
+Machine Room:   Underground
+Date:   2023/06/14
+Estado:   pendiente
+Username:   diego
+Wall 1 Name Type:   wall 1
+Wall 1 size:   50.0
+Wall 2 Name Type:   wall 2
+Wall 2 size:   100.0
+Wall 3 Name Type:   wall 3
+Wall 3 size:   150.0
+Transition wall:   5.0

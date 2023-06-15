@@ -1,0 +1,23 @@
+Project Name_stage1:   ejemplo stage 3
+Decimal Separator:   ,
+Country:   Brazil
+Area:   35.0
+Region:   USA
+Type of Lagoon:   RE
+Language:   English
+Currency:   USD
+Maximum Lagoon Depth:   1.8
+Total Perimeter:   2340.0
+Wall:   2265.0
+Beach Entrance:   50.0
+Island beach entrance:   25.0
+Machine Room:   Underground
+Date:   2023/06/14
+Estado:   pendiente
+Username:   diego
+Wall 1 Name Type:   wall 1
+Wall 1 size:   500.0
+Wall 2 Name Type:   wall 2
+Wall 2 size:   550.0
+Wall 3 Name Type:   wall 3
+Wall 3 size:   600.0
