@@ -4,31 +4,60 @@ import ssl
 import smtplib
 import pandas as pd
 import mimetypes
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+
 
 def read_emails_from_csv_of_type(filename, email_types=None):
     df = pd.read_csv(filename)
-
-    # If email_types is provided, filter the dataframe for rows where type is in the list of email_types
     if email_types is not None:
         df = df[df['type'].isin(email_types)]
-
     return df['mails'].tolist()
 
+def write_link_to_txt(txt_filename, link):
+    with open(txt_filename, 'a') as f:
+        f.write(f'\nLink to DWG file: {link}\n')
+
+
+def upload_to_drive(filename):
+    gauth = GoogleAuth()
+    gauth.LoadCredentialsFile("mycreds.txt")
+    if gauth.credentials is None:
+        gauth.LocalWebserverAuth()
+    elif gauth.access_token_expired:
+        gauth.Refresh()
+    else:
+        gauth.Authorize()
+
+    drive = GoogleDrive(gauth)
+    
+    file_drive = drive.CreateFile({'title': filename, "parents": [{"kind": "drive#fileLink","id": '1pQvgO8gQKy-oXBGiRVVb8XwtdEEhqVz4'}]})
+    file_drive.SetContentFile(filename)
+    file_drive.Upload()
+    
+    file_drive.InsertPermission({'type': 'anyone','value': 'anyone','role': 'reader'})
+    
+    return file_drive['alternateLink']
+
+
 def send_mail(email_subject, filenames_to_attach, email_types=None, attach_pdf=True):
+    if isinstance(filenames_to_attach, str):
+        filenames_to_attach = [filenames_to_attach]
     email_sender = 'dpavez@crystal-lagoons.com'
-    email_password = 'vcxpacpxsbyxajmy'
+    email_password = 'icqz fpqg boan wrlg'
     filename = 'mails.csv'
 
-    # Read the email addresses from the CSV file
     emails = read_emails_from_csv_of_type(filename, email_types)
 
     subject = email_subject
 
-    # Initialize the body as an empty string
     body = ''
-    
-    # Initialize a flag to indicate whether a DWG has been attached
+
+    dwg_links = ''
     dwg_attached = False
+    text_part = EmailMessage()
+    text_part.set_content('')
+
 
     for i, filename_to_attach in enumerate(filenames_to_attach, start=1):
         # Get the email body from the text file
@@ -61,14 +90,26 @@ def send_mail(email_subject, filenames_to_attach, email_types=None, attach_pdf=T
         if not dwg_attached:
             dwg_filename = os.path.join('dwg', filename_to_attach + '.dwg')
             if os.path.exists(dwg_filename):
-                mime_type_dwg = 'application'
-                mime_subtype_dwg = 'octet-stream'  # generic byte stream type
-                with open(dwg_filename, 'rb') as f:
-                    em.add_attachment(f.read(),
-                                    maintype=mime_type_dwg,
-                                    subtype=mime_subtype_dwg,
-                                    filename=os.path.basename(dwg_filename))
-                dwg_attached = True  # Update the flag to indicate that a DWG has been attached
+                if os.path.getsize(dwg_filename) > 25 * 1024 * 1024:
+                    file_link = upload_to_drive(dwg_filename)
+                    write_link_to_txt(txt_filename, file_link)
+                    os.remove(dwg_filename)
+                    dwg_links += f'DWG: {file_link}\n'
+                    dwg_attached = True
+                    body = body + dwg_links
+                    em.set_content(body)
+
+
+
+                else:
+                    mime_type_dwg = 'application'
+                    mime_subtype_dwg = 'octet-stream'  # generic byte stream type
+                    with open(dwg_filename, 'rb') as f:
+                        em.add_attachment(f.read(),
+                                        maintype=mime_type_dwg,
+                                        subtype=mime_subtype_dwg,
+                                        filename=os.path.basename(dwg_filename))
+                    dwg_attached = True  # Update the flag to indicate that a DWG has been attached
 
     context = ssl.create_default_context()
 

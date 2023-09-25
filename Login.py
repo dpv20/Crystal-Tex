@@ -14,6 +14,31 @@ import streamlit.components.v1 as components
 
 
 
+
+import shutil
+
+def delete_directory(dir_path):
+    """
+    Delete the directory at the specified path along with all its contents.
+    
+    :param dir_path: The path of the directory to delete
+    """
+    # Check if the directory exists
+    if os.path.exists(dir_path) and os.path.isdir(dir_path):
+        print("holi")
+        try:
+            # Recursively delete the directory
+            shutil.rmtree(dir_path)
+            print(f"Successfully deleted {dir_path}")
+        except Exception as e:
+            print(f"Failed to delete {dir_path}. Reason: {e}")
+            pass
+    else:
+        #print(f"The directory {dir_path} does not exist.")     
+        pass
+
+
+
 DEFAULT_PAGE = "Login.py"
 
 st.set_page_config(page_title="Multipage App", page_icon=":key:")
@@ -27,8 +52,15 @@ from proyectos import *
 from proyectos_pendientes2 import *  
 from user_projects import *
 from visitas import *
-from send_mail import *
+from send_mail2 import *
 from mail_list import *
+from solicitud_viaje import *
+from listado_empleados import *
+from listado_proyectos import *
+from listado_viaticos import *
+from solicitudes_pendientes import *
+from solicitudes_aprobadas import *
+from make_checklist import *
 #sys.path.append(os.path.dirname(os.path.abspath(__file__)))
     
 
@@ -76,15 +108,13 @@ def main():
         st.session_state['logged_in'] = False
 
     if st.session_state['logged_in']:
+        delete_directory(r'C:\Users\dpv_2\AppData\Local\Temp\gen_py')
         st.sidebar.title('Menu')
-        menu_options = ["homepage", "TEX"]
+        menu_options = ["homepage", "TEX", "Mis proyectos"] #, "Solicitud de Viaje", "Reportes-Operaciones"
         if st.session_state['user_role'] == 'admin':
-            menu_options.extend(["configuraciones", "Proyectos","Field Visit Form"])  
-        if st.session_state['user_role'] != 'admin':
-            menu_options.append("Mis proyectos")
+            menu_options.extend(["configuraciones", "Proyectos"])  #,"Field Visit Form"
         choice = st.sidebar.selectbox("Menu", menu_options)
         
-
 
         if choice == "Mis proyectos":
             Mis_proyectos(st.session_state['username'])
@@ -127,11 +157,6 @@ def main():
                     proyectos()
             else:
                 st.warning("Access denied. Only admin users can access this page.")
-
-
-
-        elif choice == "Field Visit Form":
-            field_visit_form()
     else:
         login_page()
 

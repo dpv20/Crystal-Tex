@@ -120,7 +120,7 @@ def surveys(username):
     machine_room_options = ['None', 'Underground', 'Surface']
     languages = ['None', 'English', 'Spanish']
     currencies = ['None', 'USD', 'EUR', 'UF']
-
+    TAGS =[]
     with st.form(key='lagoon_form'):
         project_name = st.text_input('Project Name', max_chars=50)
         decimal_separator = st.selectbox('Decimal Separator', decimal_separators)
@@ -202,7 +202,8 @@ def surveys(username):
 
                 # Append the data to the 'proyectos.csv' file
                 with open('proyectos.csv', 'a') as f:
-                    data.to_csv(f, header=False, index=False, line_terminator='\n')
+                    #data.to_csv(f, header=False, index=False, line_terminator='\n')
+                    data.to_csv(f, header=False, index=False)
 
 
                 # Now handle the excel output
@@ -316,11 +317,12 @@ def surveys(username):
                     pdf_writer.write(output_pdf)
 
 
-                send_mail(f'{project_name} pendiente', st.session_state['selected_tag'], attach_pdf=False)
 
+                TAGS.append(random_string)
+                send_mail(f'{project_name} pendiente', TAGS, attach_pdf=False)
 
+                time.sleep(1)
 
                 st.success('Form submitted successfully.')
 
-                time.sleep(5)
 

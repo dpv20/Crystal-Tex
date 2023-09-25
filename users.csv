@@ -1,7 +1,6 @@
 username,password,role
-admin1,1pass,admin
-diego,pavez,admin
-evarela@crystal-lagoons.com ,Elias.Varela,admin
-tmora@crystal-lagoons.com ,Tomas.Mora,admin
-jpreyes@crystal-lagoons.com ,Jp.Reyes,admin
-dpavez@crystal-lagoons.com ,Diego.Pavez,admin
+diego,pavez,user
+evarela@crystal-lagoons.com,Elias.Varela,admin
+tmora@crystal-lagoons.com,Tomas.Mora,admin
+jpreyes@crystal-lagoons.com,Jp.Reyes,admin
+dpavez@crystal-lagoons.com,Diego.Pavez,admin

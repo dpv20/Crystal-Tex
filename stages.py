@@ -165,7 +165,7 @@ def stages(username):
         for i in range(number_of_stages):
             with cols[i%4]:
                 if i == number_of_stages-1:
-                    st.subheader("Final stage")
+                    st.subheader(f"Stage {i+1}")
                 else:    
                     st.subheader(f"Stage {i+1}")
                 
@@ -207,7 +207,7 @@ def stages(username):
 
         st.write('---------------------------')
 
-        time.sleep(2)
+        time.sleep(1)
         
 
 
@@ -266,7 +266,8 @@ def stages(username):
 
                 # Append the data to the 'proyectos.csv' file
                 with open('proyectos.csv', 'a') as f:
-                    data.to_csv(f, header=False, index=False, line_terminator='\n')
+                    #data.to_csv(f, header=False, index=False, line_terminator='\n')
+                    data.to_csv(f, header=False, index=False)
 
 
 
@@ -390,9 +391,9 @@ def stages(username):
                 with open(f'TEXs/{random_string}/{random_string}.pdf', 'wb') as output_pdf:
                     pdf_writer.write(output_pdf)
 
-                st.success('Form submitted successfully.')
+                st.success('Form 1 submitted successfully, wait for the others if there are any.')
                 wb.Close()
-                time.sleep(2)
+                time.sleep(1)
                 if number_of_stages >= 2:
 
                     perimeter_1 = stage_walls[1]+stage_beach_entrances[1]+stage_island_beach_entrances[1]+stage_transition_walls[1]+stage_walls[0]+stage_beach_entrances[0]+stage_island_beach_entrances[0]
@@ -442,7 +443,8 @@ def stages(username):
 
                     # Append the data to the 'proyectos.csv' file
                     with open('proyectos.csv', 'a') as f:
-                        data.to_csv(f, header=False, index=False, line_terminator='\n')
+                        #data.to_csv(f, header=False, index=False, line_terminator='\n')
+                        data.to_csv(f, header=False, index=False)
 
 
 
@@ -563,9 +565,9 @@ def stages(username):
                     with open(f'TEXs/{random_string2}/{random_string2}.pdf', 'wb') as output_pdf:
                         pdf_writer.write(output_pdf)
 
-                    st.success('Form submitted successfully.')
+                    st.success('Form 2 submitted successfully, wait for the others if there are any.')
                     wb.Close()
-                    time.sleep(2)
+                    time.sleep(1)
 
                 if number_of_stages >= 3:
                     perimeter_2 = stage_walls[2]+stage_beach_entrances[2]+stage_island_beach_entrances[2]+stage_transition_walls[2]+stage_walls[1]+stage_beach_entrances[1]+stage_island_beach_entrances[1]+stage_walls[0]+stage_beach_entrances[0]+stage_island_beach_entrances[0]
@@ -614,7 +616,8 @@ def stages(username):
 
                     # Append the data to the 'proyectos.csv' file
                     with open('proyectos.csv', 'a') as f:
-                        data.to_csv(f, header=False, index=False, line_terminator='\n')
+                        #data.to_csv(f, header=False, index=False, line_terminator='\n')
+                        data.to_csv(f, header=False, index=False)
 
                     # Now handle the excel output
                     excel = win32.gencache.EnsureDispatch('Excel.Application')
@@ -736,9 +739,9 @@ def stages(username):
                     with open(f'TEXs/{random_string3}/{random_string3}.pdf', 'wb') as output_pdf:
                         pdf_writer.write(output_pdf)
 
-                    st.success('Form submitted successfully.')
+                    st.success('Form 3 submitted successfully, wait for the others if there are any.')
                     wb.Close()
-                    time.sleep(2)
+                    time.sleep(1)
                 if number_of_stages == 4:
                     area_actual = stage_areas[0]+stage_areas[1]+stage_areas[2]+stage_areas[3]
                     perimeter_3 = stage_walls[3]+stage_beach_entrances[3]+stage_island_beach_entrances[3]+stage_transition_walls[3]+stage_walls[2]+stage_beach_entrances[2]+stage_island_beach_entrances[2]+stage_walls[1]+stage_beach_entrances[1]+stage_island_beach_entrances[1]+stage_walls[0]+stage_beach_entrances[0]+stage_island_beach_entrances[0]
@@ -786,7 +789,8 @@ def stages(username):
 
                     # Append the data to the 'proyectos.csv' file
                     with open('proyectos.csv', 'a') as f:
-                        data.to_csv(f, header=False, index=False, line_terminator='\n')
+                        #data.to_csv(f, header=False, index=False, line_terminator='\n')
+                        data.to_csv(f, header=False, index=False)
 
                     # Now handle the excel output
                     excel = win32.gencache.EnsureDispatch('Excel.Application')
@@ -839,7 +843,7 @@ def stages(username):
                                 save_range_to_pdf('Template ESP', 'B23', 'J39', pdf_writer, wb)
                             elif currency == 'UF':
                                 save_range_to_pdf('Template UF', 'B3', 'J18', pdf_writer, wb)
-                    time.sleep(2)
+                    time.sleep(1)
                     answers2 = answers
                     question_labels2 = question_labels
                     if stage_walls_1[3] > 0:
@@ -890,7 +894,7 @@ def stages(username):
 
 
 
-                    time.sleep(2)
+                    time.sleep(1)
 
 
                     # Call the save_range_to_pdf function
@@ -904,14 +908,14 @@ def stages(username):
                     with open(f'TEXs/{random_string4}/{random_string4}.pdf', 'wb') as output_pdf:
                         pdf_writer.write(output_pdf)
 
-                    time.sleep(2)
+                    time.sleep(1)
 
 
-                    send_mail(f'{project_name} pendiente', TAGS, attach_pdf=False)
-
-
+                    time.sleep(1)
                     st.success('Form submitted successfully.')
                     wb.Close()
-                    time.sleep(2)
 
+                print("mail")
+                send_mail(f'{project_name} pendiente', TAGS, attach_pdf=False)
+                print("mail2")
             #pass

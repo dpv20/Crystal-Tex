@@ -1,0 +1,9 @@
+solicitud,fecha_solicitud,estado,Nombre Empleado,departamento,total_usd_viatico,fecha_partida,fecha_llegada,comentario
+38,2023-08-28,aprobado,Diego Pavez,Technical,0,2023-08-28,2023-08-28,Todo bien
+37,2023-08-28,pendiente,Diego Pavez,Technical,0,2023-08-28,2023-08-28,
+36,2023-08-28,pendiente,Diego Pavez,Technical,0,2023-08-28,2023-08-28,
+35,2023-08-28,pendiente,Diego Pavez,Technical,0,2023-08-28,2023-08-28,
+19,2023-08-18,aprobado,Diego Pavezs222,Administración y Finanzas222,222,2023-08-17,2023-08-30,nan22
+18,2023-08-18,aprobado,Diego Pavezs,Administración y Finanzas,0,2023-08-16,2023-08-24,
+31,2023-08-24,pendiente,Diego Pavez,Technical,0,2023-08-24,2023-08-24,
+32,2023-08-24,pendiente,Diego Pavez,Technical,0,2023-08-24,2023-08-24,
