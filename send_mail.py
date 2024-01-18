@@ -44,7 +44,8 @@ def send_mail(email_subject, filenames_to_attach, email_types=None, attach_pdf=T
     if isinstance(filenames_to_attach, str):
         filenames_to_attach = [filenames_to_attach]
     email_sender = 'dpavez@crystal-lagoons.com'
-    email_password = 'icqz fpqg boan wrlg'
+    #email_password = 'icqz fpqg boan wrlg'
+    email_password = 'wzda cjzm ursc whld'
     filename = 'mails.csv'
 
     emails = read_emails_from_csv_of_type(filename, email_types)

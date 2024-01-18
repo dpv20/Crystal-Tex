@@ -28,6 +28,13 @@ def image_to_base64(image):
     image.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
+def get_csv_download_link(file_path, file_name):
+    with open(file_path, 'rb') as f:
+        bytes_data = f.read()
+        b64 = base64.b64encode(bytes_data).decode()
+        href = f'<a href="data:file/csv;base64,{b64}" download="{file_name}">Download CSV File</a>'
+        return href
+
 
 def Mis_proyectos(username):
     st.title(f"{username}'s Projects")
@@ -35,7 +42,10 @@ def Mis_proyectos(username):
 
     # Filter the data to show only the projects with the specified user
     user_projects = df_proyectos[df_proyectos["Username"] == username]
-
+    temp_file_path = "temp_user_projects.csv"
+    user_projects.to_csv(temp_file_path, index=False)
+    st.markdown(get_csv_download_link(temp_file_path, "user_projects.csv"), unsafe_allow_html=True)
+    os.remove(temp_file_path)
     selected_columns = ["Project Name", "Country", "Date", "Estado", "Username"]
     header_columns = st.columns([3, 2, 2, 2, 3, 2])  # Adjust column widths here
     
@@ -62,7 +72,7 @@ def Mis_proyectos(username):
     if selected_tag:
         selected_project = user_projects[user_projects["TAG"] == selected_tag].iloc[0]
         if selected_project["Estado"] == "aprobado":
-            pdf_path = os.path.join("TEXs", f"{selected_tag}.pdf")
+            pdf_path = os.path.join("TEXs", selected_tag, f"{selected_tag}.pdf")
             if os.path.exists(pdf_path):
                 images = convert_from_path(pdf_path)
                 for image in images:
